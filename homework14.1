@@ -1,0 +1,59 @@
+using System;
+
+public class Account
+{
+    public string AccountName;  
+    private double balance;  
+
+    public Account(string accountName, double initialBalance)
+    {
+        AccountName = accountName;
+        balance = initialBalance >= 0 ? initialBalance : 0; 
+    }
+
+    public double GetAccountBalance()
+    {
+        return balance;
+    }
+
+    public void AddFunds(double amount)
+    {
+        if (amount > 0)
+        {
+            balance += amount;
+            Console.WriteLine($"Successfully added {amount} to the account.");
+        }
+        else
+        {
+            Console.WriteLine("The amount to deposit must be greater than zero.");
+        }
+    }
+
+    public void RemoveFunds(double amount)
+    {
+        if (amount > 0 && amount <= balance)
+        {
+            balance -= amount;
+            Console.WriteLine($"Successfully withdrew {amount} from the account.");
+        }
+        else
+        {
+            Console.WriteLine("Insufficient funds or invalid withdrawal amount.");
+        }
+    }
+}
+
+public class Program
+{
+    public static void Main()
+    {
+        Account johnsAccount = new Account("John's Main Account", 500.00);
+        Account johnsSwissAccount = new Account("John's Swiss Account", 2000000.00);
+
+        johnsAccount.RemoveFunds(50);
+        Console.WriteLine($"Current balance of John's main account: {johnsAccount.GetAccountBalance()}");
+
+        johnsSwissAccount.AddFunds(500);
+        Console.WriteLine($"Current balance of John's Swiss account: {johnsSwissAccount.GetAccountBalance()}");
+    }
+}
